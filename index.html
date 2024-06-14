@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars search engine</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script type="module" src="js/main.js"></script>
+</head>
+<body>
+    <header class="header">
+        <img src="img/StarWars_YellowLogo.svg" alt="Star Wars Logo" id="logo">
+        <h1>API SEARCH</h1>
+        <div class="obi-button-con">
+            <button id="obi-button">Help me Obi-Wan!</button>
+        </div>
+    </header>
+    <div class="top-container"> 
+        <div class="search-container">
+            <div class="checkbox-con">
+                    <label class="checkbox">
+                        <input type="radio" id="people-check" name="search-options" value="People" checked>
+                        People
+                    </label>
+                    <label class="checkbox">
+                        <input type="radio" id="planet-check" name="search-options" value="Planets">
+                        Planets</label>
+                    <label class="checkbox">
+                        <input type="radio" id="both-check" name="search-options" value="Both">
+                    Both</label>
+            </div>
+            <div class="search-field">
+                <input type="search" class="search-input" value="" placeholder="Search for a character or planet...">
+                <button value="submit" class="search-button">Search</button>
+            </div>
+            <div class="dropdown-content">
+            </div>
+        </div>
+        <div id="recent-searches-con">
+            <h4>Recent searches:</h4>
+            <ul class="recent-searches"></ul>
+        </div>
+    </div>
+
+        <main>
+            <div class="info-container" id="people">
+                <h2 id="character-header">Character:</h2>
+                <h3 class="info-header" id="personname-header"></h2>
+                <table class="table1">
+                    <tr>
+                        <td class="attributes">Name: </td>
+                        <td class="strings" id="person-name"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Birth year: </td>
+                        <td class="strings" id="birth_year"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Gender: </td>
+                        <td class="strings" id="gender"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Eye color: </td>
+                        <td class="strings" id="eye_color"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Hair color: </td>
+                        <td class="strings" id="hair_color"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Height:</td>
+                        <td class="strings" id="height"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Mass (kg): </td>
+                        <td class="strings" id="mass"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Skin color: </td>
+                        <td class="strings" id="skin_color"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Homeworld: </td>
+                        <td class="strings" id="homeworld"></td>
+                    </tr>
+                </table>
+                <img src="img/galaxymap.jpg" class="galaxy-map" alt="star wars galaxy map">
+            </div>
+            <div class="info-container" id="planets">
+                <h2 id="planet-header">Planet:</h2>
+                <h3 class="info-header" id="planetname-header"></h2>
+                <table class="table2">
+                    <tr>
+                        <td class="attributes">Name: </td>
+                        <td class="strings" id="planet-name"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Diameter: </td>
+                        <td class="strings" id="diameter"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Rotation period: </td>
+                        <td class="strings" id="rotation_period"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Orbital period: </td>
+                        <td class="strings" id="orbital_period"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Gravity: </td>
+                        <td class="strings" id="gravity"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Population:</td>
+                        <td class="strings" id="population"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Climate: </td>
+                        <td class="strings" id="climate"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Terrain: </td>
+                        <td class="strings" id="terrain"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributes">Surface water: </td>
+                        <td class="strings" id="surface_water"></td>
+                    </tr>
+                </table>
+            </div>
+        </main> 
+</body>
+</html>

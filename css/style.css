@@ -1,0 +1,263 @@
+:root {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body {
+    background-image: url("/img/1024pxNebula.jpg");
+    margin: 0;
+    padding: 0 2em 2em 2em;
+    }
+
+header {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.747);
+    height: 15em;
+    margin-left: auto;
+    margin-right: auto;
+    } 
+
+#logo {
+    width: 20em;
+    position: absolute;
+    top: 2em;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+h1 {
+    position: absolute;
+    bottom: 0em;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Monoton", sans-serif;
+    font-weight: 400;
+    font-size: 3em;
+    font-style: normal;
+    color: yellow;
+    margin: 0;
+}
+
+.obi-button-con {
+    position: absolute;
+    right: 9em;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15em;
+    height: 6em;
+}
+
+#obi-button {
+    cursor: pointer;
+    background-color:rgb(64, 229, 174);
+    border: 2px solid rgb(16, 168, 117);
+    border-radius: 10em;
+    padding: 0.3em;
+    font-size: 2em;
+    font-family: "Tourney", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+    transition-property: transform, background-color;
+    transition-duration: 0.3s;
+    transition-timing-function: linear;
+}
+
+.obi-button-con > #obi-button:hover {
+    transform: rotate(360deg);
+    background-color: brown;
+}
+
+.top-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+    margin-left: 13.5rem;
+    
+}
+.search-container {
+    position: relative;
+    width: 60%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.checkbox-con {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    width: fit-content;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    color: antiquewhite;
+    background-color: rgba(0, 0, 0, 0.68);
+}
+
+.checkbox {
+    position: relative;
+    margin: 0.3rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    
+}
+
+.search-input {
+    background-color: rgb(235, 210, 163);
+    border: 2px rgb(222, 169, 70) solid;
+    border-top-left-radius: 0.6em;
+    border-bottom-left-radius: 0.6em;
+    width: 40em;
+    height: 3em;
+        
+}
+
+.search-button {
+    position: absolute;
+    right: 0;
+    width: 10em;
+    height: 3em;
+    background-color: rgb(253, 194, 85) ;
+    border: 2px rgb(222, 169, 70) solid;
+    border-top-right-radius: 0.6em;
+    border-bottom-right-radius: 0.6em;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    max-height: 10rem;
+    top: 100%;
+    left: 0;
+    background-color: rgb(235, 210, 163);
+    border-bottom-left-radius:  0.5em;
+    border-bottom-right-radius: 0.5em;
+    width: 100%;
+    z-index: 1;
+    overflow-y: scroll;
+}
+
+.dropdown-content > a {
+    display: block;
+    color: black;
+    padding: 0.5em;
+}
+
+.search-container:focus-within .dropdown-content {
+    display: block;
+}
+
+#recent-searches-con {
+    width: 30%;
+    height: 6rem;
+    background-color: rgba(235, 210, 163, 0.683);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    color: antiquewhite;
+    text-align: start;
+    overflow-y: scroll;
+}
+
+.recent-searches {
+    margin: 0.5rem;
+    padding-left: 0;
+}
+
+.history-item {
+    display: flex;
+    flex-direction: row;
+    color: black;
+    border-bottom: 1px black solid;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+}
+
+.reload-btn {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    background-color: rgba(253, 194, 85, 0.845) ;
+    border: none;
+    border-radius: 0.1rem;  
+    margin-right: 0.3rem;
+
+}
+
+.reload-icon {
+    width: inherit;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    width: 60%;
+    height: 35em;
+    margin-left: auto;
+    margin-right: auto; 
+    margin-bottom: 1em;
+    background-color: rgba(0, 0, 0, 0.747);
+    padding: 4em;
+    color: antiquewhite;
+    text-align: start;
+    overflow-y: scroll;
+}
+
+.info-container {
+    position: relative;
+    width: 50%;
+}
+
+h2 {
+    visibility: hidden;
+    margin: 0;
+    color: #fddf1b;
+    font-size: 2rem;
+}
+
+h3 {
+    margin: 0;
+    color: #fddf1b;
+    font-size: 3rem;
+}
+
+h4 {
+    margin: 0;
+    color: black;
+    font-size: 1rem; 
+}
+
+table {
+    visibility: collapse;
+    background-color: rgba(250, 235, 215, 0.481);
+    border-radius: 1rem;
+    width: 100%;
+}
+
+.attributes {
+    color: #fddf1b;
+}
+
+td, tr {
+    font-size: 1.5rem;
+    padding: 0.7rem;
+    width: 40%;
+}
+
+
+.galaxy-map {
+    visibility: collapse;
+    width: 25em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    border: 2px black solid;
+    border-radius: 1rem;
+}
