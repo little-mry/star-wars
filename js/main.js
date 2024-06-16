@@ -46,22 +46,27 @@ function getSearchResult() {
   searchValue = searchInput.value;
   searchQuery = "?search=" + searchValue;
 
-  const selectedOption = document.querySelector(
-    'input[name="search-options"]:checked'
-  ).value;
-  console.log("Selected search option:", selectedOption);
+ 
+  const selectedOptions = document.querySelector(
+    'input[name="search-options]');
+  const selectedOptionPlanet = document.querySelector(
+    'input[name="search-options"]');
 
-  if (selectedOption === "People") {
+  console.log("Selected search option:", selectedOptionPeople.checked + selectedOptionPlanet.checked);
+
+  if ((selectedOptionPeople.checked = 'true')) {
     getPeopleInfo();
-  } else if (selectedOption === "Planets") {
+  } 
+
+  if ((selectedOptionPlanet.checked = 'true')) {
     getPlanetInfo();
-  } else if (selectedOption === "Both") {
+  } 
+  
+  if  ((selectedOptionPeople.checked = 'true') && (selectedOptionPlanet.checked = 'true')) {
     getBothInfo();
-  }
+    }
 
-  searchInput.value = "";
 }
-
 async function getPeopleInfo() {
   apiUrl = peopleUrl + searchQuery;
 
@@ -117,7 +122,21 @@ function displayResults(results) {
         }
       });
 
+      let suffixText = '';
+      if (searchResultUrl.includes("people")) {
+        suffixText = ' (character)';
+      } else if (searchResultUrl.includes("planet")) {
+        suffixText = ' (planet)';
+      }
+
       searchDropDown.appendChild(resultItem);
+      if (suffixText) {
+        const suffixNode = document.createElement('span');
+        suffixNode.textContent = suffixText
+        suffixNode.className = "suffix"
+        resultItem.appendChild(suffixNode);
+      }
+
       searchInput.value = "";
     });
   } else {

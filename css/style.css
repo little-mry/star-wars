@@ -150,6 +150,18 @@ h1 {
     display: block;
 }
 
+.result-item {
+    text-decoration: none;
+    border-bottom: 1px solid rgb(222, 169, 70);
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.suffix {
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
 #recent-searches-con {
     width: 30%;
     height: 6rem;
@@ -186,7 +198,6 @@ h1 {
     border: none;
     border-radius: 0.1rem;  
     margin-right: 0.3rem;
-
 }
 
 .reload-icon {
