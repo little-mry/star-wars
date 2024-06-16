@@ -49,8 +49,7 @@ function getSearchResult() {
  
   const selectedOptions = document.querySelector(
     'input[name="search-options]');
-  const selectedOptionPlanet = document.querySelector(
-    'input[name="search-options"]');
+ 
 
   console.log("Selected search option:", selectedOptionPeople.checked + selectedOptionPlanet.checked);
 
