@@ -1,21 +1,19 @@
-const peopleUrl = "https://swapi.dev/api/people/";
-const planetsUrl = "https://swapi.dev/api/planets/";
-const obiWanButton = document.querySelector("#obi-button");
-const headerOutput = document.querySelector("#personname-header");
-const planetHeader = document.querySelector("#planetname-header");
+import { getPeopleInfo, getPlanetInfo, getBothInfo, getApiInfo } from './getApi.js';
+import { displayResults, displayPeopleDetails, displayPlanetDetails } from './displayInfo.js';
+import { sendHistory, getStorage } from './storage.js';
 
-const factOutput = document.querySelector(".info-container");
+const obiWanButton = document.querySelector("#obi-button");
 const searchInput = document.querySelector(".search-input");
 const searchButton = document.querySelector(".search-button");
 const searchDropDown = document.querySelector(".dropdown-content");
-const infoStrings = document.querySelectorAll(".strings");
-const checkBoxes = document.querySelectorAll(".checkbox input");
-const recentSearches = document.querySelector(".recent-searches")
 
-let infoDiv = "";
-let apiUrl;
 let searchValue;
 let searchQuery;
+
+
+window.onload = function () {
+  getStorage();
+};
 
 obiWanButton.addEventListener("click", () => {
   getObiWanApi();
@@ -27,214 +25,43 @@ searchInput.addEventListener("mousedown", () => {
   }
 });
 
-searchButton.addEventListener("click", async (event) => {
+searchButton.addEventListener("click", (event) => {
   if (searchInput.value !== "") {
     event.preventDefault();
-    await getSearchResult();
+    getSearchResult();
   }
 });
 
 function getObiWanApi() {
   const obiWanQuery = "10/";
-  const obiWanUrl = peopleUrl + obiWanQuery;
-  console.log(obiWanUrl);
+  const obiWanUrl = `https://swapi.dev/api/people/${obiWanQuery}`;
 
-  getApiInfo(obiWanUrl);
+  getApiInfo(obiWanUrl).then(data => {
+    if (obiWanUrl.includes("people")) {
+        displayPeopleDetails(data);
+      }
+      sendHistory(obiWanUrl, data);
+  })
 }
 
 function getSearchResult() {
   searchValue = searchInput.value;
-  searchQuery = "?search=" + searchValue;
+  searchQuery = `?search=${searchValue}`;
 
- 
-  const selectedOptions = document.querySelector(
-    'input[name="search-options]');
- 
+  const options = document.forms[0];
 
-  console.log("Selected search option:", selectedOptionPeople.checked + selectedOptionPlanet.checked);
-
-  if ((selectedOptionPeople.checked = 'true')) {
-    getPeopleInfo();
-  } 
-
-  if ((selectedOptionPlanet.checked = 'true')) {
-    getPlanetInfo();
-  } 
-  
-  if  ((selectedOptionPeople.checked = 'true') && (selectedOptionPlanet.checked = 'true')) {
-    getBothInfo();
-    }
-
-}
-async function getPeopleInfo() {
-  apiUrl = peopleUrl + searchQuery;
-
-  const searchResponse = await fetch(apiUrl);
-  const data = await searchResponse.json();
-
-  displayResults(data.results);
-}
-
-async function getPlanetInfo() {
-  apiUrl = planetsUrl + searchQuery;
-
-  const searchResponse = await fetch(apiUrl);
-  const data = await searchResponse.json();
-
-  displayResults(data.results);
-}
-
-async function getBothInfo() {
-  const [peopleResponse, planetsResponse] = await Promise.all([
-    fetch(peopleUrl + searchQuery),
-    fetch(planetsUrl + searchQuery),
-  ]);
-
-  const [peopleInfo, planetsInfo] = await Promise.all([
-    peopleResponse.json(),
-    planetsResponse.json(),
-  ]);
-
-  const combinedResults = [...peopleInfo.results, ...planetsInfo.results];
-  displayResults(combinedResults);
-}
-
-function displayResults(results) {
-  if (results.length > 0) {
-    results.forEach((item) => {
-      let displayName = item.name;
-      let searchResultUrl = item.url;
-
-      const resultItem = document.createElement("a");
-      resultItem.className = "result-item";
-      resultItem.href = "#";
-      resultItem.textContent = displayName;
-
-
-      resultItem.addEventListener("click", (event) => {
-        event.preventDefault();
-        console.log('searchResultUrl: ' + searchResultUrl)
-        getApiInfo(searchResultUrl);
-
-        while (searchDropDown.hasChildNodes()) {
-          searchDropDown.removeChild(searchDropDown.firstChild);
-        }
-      });
-
-      let suffixText = '';
-      if (searchResultUrl.includes("people")) {
-        suffixText = ' (character)';
-      } else if (searchResultUrl.includes("planet")) {
-        suffixText = ' (planet)';
-      }
-
-      searchDropDown.appendChild(resultItem);
-      if (suffixText) {
-        const suffixNode = document.createElement('span');
-        suffixNode.textContent = suffixText
-        suffixNode.className = "suffix"
-        resultItem.appendChild(suffixNode);
-      }
-
-      searchInput.value = "";
+  if (options[0].checked && options[1].checked) {
+    getBothInfo(searchQuery).then(results => {
+        displayResults(results);
     });
-  } else {
-    const noResults = document.createElement("p");
-    noResults.textContent =
-      "Couldn't find anything that contains \"" +
-      searchInput.value +
-      '", try again...';
-    searchDropDown.appendChild(noResults);
-    searchInput.value = "";
+  } else if (options[0].checked && !options[1].checked) {
+    getPeopleInfo(searchQuery).then(results => {
+        displayResults(results);
+    });
+  } else if (options[1].checked && !options[0].checked) {
+    getPlanetInfo(searchQuery).then(results => {
+        displayResults(results);
+    });
   }
 }
 
-async function getApiInfo(url) {
-  const response = await fetch(url);
-  const apiReturn = await response.json();
-
-  if (apiReturn.url.includes("people")) {
-    displayPeopleDetails(apiReturn);
-  } else if (apiReturn.url.includes("planets")) {
-    displayPlanetDetails(apiReturn);
-    document.querySelector(".table1").style.visibility = "collapse";
-    document.querySelector("#character-header").style.visibility = "collapse";
-
-    headerOutput.innerText = "";
-  }
-
-  sendHistory(url, apiReturn)
-}
-
-async function displayPeopleDetails(apiReturn) {
-  headerOutput.innerText = apiReturn.name;
-
-  infoStrings.forEach((element) => {
-    const id = element.id;
-    if (apiReturn[id]) {
-      element.textContent = apiReturn[id];
-    }
-  });
-
-  if (apiReturn.name) {
-    document.querySelector("#person-name").textContent = apiReturn.name;
-  }
-
-  if (apiReturn.homeworld) {
-    const homeworldResponse = await fetch(apiReturn.homeworld);
-    const homeworldData = await homeworldResponse.json();
-    document.querySelector("#homeworld").textContent = homeworldData.name;
-
-    displayPlanetDetails(homeworldData);
-  }
-
-  document.querySelector("#character-header").style.visibility = "visible";
-  document.querySelector(".table1").style.visibility = "visible";
-  document.querySelector(".galaxy-map").style.visibility = "collapse";
-}
-
-function displayPlanetDetails(apiReturn) {
-  planetHeader.innerText = apiReturn.name;
-
-  infoStrings.forEach((element) => {
-    const id = element.id;
-    if (apiReturn[id]) {
-      element.textContent = apiReturn[id];
-    }
-  });
-
-  if (apiReturn.name) {
-    document.querySelector("#planet-name").textContent = apiReturn.name;
-  }
-
-  document.querySelector("#planet-header").style.visibility = "visible";
-  document.querySelector(".table2").style.visibility = "visible";
-  document.querySelector(".galaxy-map").style.visibility = "visible";
-}
-
-function sendHistory(url, apiReturn) {
-  const historyItems = document.createElement("span");
-  historyItems.className = 'history-item'
-
-  const reloadBtn = document.createElement("button");
-  reloadBtn.className = 'reload-btn'
-  reloadBtn.addEventListener('click', () => {
-    getApiInfo(url)
-  })
-
-  const getIcon = document.createElement("img");
-  getIcon.src = 'img/reload1.png';
-  getIcon.alt = 'reload icon';
-  getIcon.className = 'reload-icon';
-
-
-
-  historyItems.appendChild(reloadBtn);
-  reloadBtn.appendChild(getIcon);
-  historyItems.appendChild(document.createTextNode(apiReturn.name))
-  recentSearches.insertBefore(historyItems, recentSearches.children[0])
-}
-
-function storeLocally() {}
-
-function getStorage() {}
